@@ -2,16 +2,16 @@
 
 A technical implementation of a hybrid IPv4 and IPv6 network environment using Cisco IOS. This project demonstrates the ability to configure router interfaces, manage subnets with varying prefix lengths, and verify end-to-end connectivity across multiple LANs.
 
-## 🌐 Network Topology
+##  Network Topology
 
 
-## 🛠️ Technical Objectives
+##  Technical Objectives
 * **IPv4 Implementation:** Configured Classless Inter-Domain Routing (CIDR) using `/25` masks on R1.
 * **IPv6 Implementation:** Deployed global unicast and link-local addressing on R2.
 * **Gateway Management:** Established default gateways for PC hosts to enable inter-network communication.
 * **Verification:** Performed ICMP connectivity tests (Ping) to validate the dual-stack routing table.
 
-## 📋 Addressing Schema
+##  Addressing Schema
 
 ### IPv4 (R1)
 | Interface | IP Address | Subnet Mask | Description |
@@ -25,7 +25,7 @@ A technical implementation of a hybrid IPv4 and IPv6 network environment using C
 | G0/0 | 2001:db8:c0de:12::1/64 | fe80::2 |
 | G0/1 | 2001:db8:c0de:13::1/64 | fe80::2 |
 
-## 🚀 Key Configurations
+##  Key Configurations
 
 ### Enabling IPv6 Routing
 Crucial step to allow R2 to forward IPv6 packets:
