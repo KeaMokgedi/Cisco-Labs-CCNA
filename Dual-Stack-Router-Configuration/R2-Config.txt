@@ -1,0 +1,99 @@
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
+!
+!
+!
+!
+!
+!
+ip cef
+ipv6 unicast-routing
+!
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524C63T
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:DB8:C0DE:12::1/64
+ ipv6 enable
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ ipv6 address FE80::2 link-local
+ ipv6 address 2001:DB8:C0DE:13::1/64
+ ipv6 enable
+!
+interface Serial0/0/0
+ no ip address
+ clock rate 128000
+ shutdown
+!
+interface Serial0/0/1
+ no ip address
+ ipv6 address 2001:DB8:C0DE:11::1/64
+ ipv6 enable
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+ipv6 route ::/0 Serial0/0/1
+!
+!
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line aux 0
+!
+line vty 0 4
+ password cisco
+ login
+!
+!
+!
+end
