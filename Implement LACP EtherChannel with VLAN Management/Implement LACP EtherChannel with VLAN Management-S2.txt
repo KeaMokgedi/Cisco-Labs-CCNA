@@ -1,0 +1,54 @@
+Flags:  D - down        P - in port-channel
+        I - stand-alone s - suspended
+        H - Hot-standby (LACP only)
+        R - Layer3      S - Layer2
+        U - in use      f - failed to allocate aggregator
+        u - unsuitable for bundling
+        w - waiting to be aggregated
+        d - default port
+
+
+Number of channel-groups in use: 1
+Number of aggregators:           1
+
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+----------------------------------------------
+
+1      Po1(SU)           LACP   Fa0/1(P) Fa0/2(P) 
+
+
+
+
+
+
+Port        Mode         Encapsulation  Status        Native vlan
+Po1         on           802.1q         trunking      1000
+
+Port        Vlans allowed on trunk
+Po1         10,20,1000
+
+Port        Vlans allowed and active in management domain
+Po1         10,20,1000
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Po1         10,20,1000
+
+
+
+
+VLAN0010
+  Spanning tree enabled protocol ieee
+  Root ID    Priority    32778
+             Address     0003.E46D.8D80
+             Cost        12
+             Port        28(Port-channel1)
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+
+  Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
+             Address     00D0.BC04.9CA4
+             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
+             Aging Time  20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Po1              Root FWD 12        128.28   P2p
