@@ -1,21 +1,5 @@
 <img width="777" height="641" alt="Screenshot 2026-05-26 121927" src="https://github.com/user-attachments/assets/1293bab0-23e3-4311-ba95-0268eda107b6" />
 
-[ WAN LINK ]
-                              172.16.1.0 / 255.255.255.252
-                                      (29-bit)
-                                         ||
-              DCE (Clock: 128k)          ||          DTE
-           [Router0] (Se0/1/0) <=========||=========> (Se0/1/0) [Router1]
-                   |                                         |
-           (Gi0/0/0) | 10.1.1.1                                (Gi0/0/0) | 10.2.1.1
-                   |                                         |
-             [ Switch0 ]                               [ Switch1 ]
-         (24-Port Line-Rate)                       (24-Port Line-Rate)
-        /     |     \\                             /     |     \\
-       /      |      \\                           /      |      \\
-  [PC0]    [PC1]    [AP0]                   [PC2]    [PC3]    [AP1]
-10.1.1.2  10.1.1.3  (L1/L2)               10.2.1.2  10.2.1.3  (L1/L2)
-
 
 ##  Hardware Inventory & Interconnections
 
@@ -92,5 +76,78 @@ exit
 ! Syntax: ip route [Target_Network] [Subnet_Mask] [Next_Hop_IP]
 ip route 10.2.1.0 255.255.255.0 172.16.1.2
 
+```
+
+
+#### Router1 (Right Gateway)
+```text
+enable
+configure terminal
+
+hostname Router1
+
+! --- LAN Interface Provisioning ---
+interface GigabitEthernet0/0/0
+ description UPLINK_TO_SWITCH1
+ ip address 10.2.1.1 255.255.255.0
+ no shutdown
+exit
+
+! --- WAN Interface Provisioning ---
+interface Serial0/1/0
+ description WAN_LINK_TO_ROUTER0
+ ip address 172.16.1.2 255.255.255.252
+ no shutdown
+exit
+
+! --- Static Route Insertion ---
+! Syntax: ip route [Target_Network] [Subnet_Mask] [Next_Hop_IP]
+ip route 10.1.1.0 255.255.255.0 172.16.1.1
+
 end
 write memory
+
+end
+write memory
+```
+
+
+#### Switches Management (Optional Houseeeping)
+```text
+! Switch0 Management
+enable
+configure terminal
+hostname Switch0
+end
+write memory
+
+! Switch1 Management
+enable
+configure terminal
+hostname Switch1
+end
+write memory
+```
+
+
+
+#### Verification & Diagnostic Procedures
+1. Inter-Network Connectivity Verification
+To confirm that the static routing engine correctly forwards packets across the serial channel, enter the Command Prompt desktop layout on PC0 and target PC2:
+
+PC> ping 10.2.1.2
+
+### Expected Operational Behavior:
+```text
+Pinging 10.2.1.2 with 32 bytes of data:
+Request timed out.
+Reply from 10.2.1.2: bytes=32 time=6ms TTL=126
+Reply from 10.2.1.2: bytes=32 time=5ms TTL=126
+Reply from 10.2.1.2: bytes=32 time=5ms TTL=126
+
+Ping statistics for 10.2.1.2:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 5ms, Maximum = 6ms, Average = 5ms
+```
+
