@@ -134,8 +134,9 @@ write memory
 #### Verification & Diagnostic Procedures
 1. Inter-Network Connectivity Verification
 To confirm that the static routing engine correctly forwards packets across the serial channel, enter the Command Prompt desktop layout on PC0 and target PC2:
-
+```text
 PC> ping 10.2.1.2
+```
 
 ### Expected Operational Behavior:
 ```text
